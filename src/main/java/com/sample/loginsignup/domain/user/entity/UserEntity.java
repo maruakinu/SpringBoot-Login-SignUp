@@ -5,12 +5,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.id.factory.spi.GenerationTypeStrategy;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class UserEntity {
 
     @Id

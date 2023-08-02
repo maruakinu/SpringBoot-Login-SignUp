@@ -1,12 +1,13 @@
 package com.sample.loginsignup.domain.user.controller;
 
+import com.sample.loginsignup.domain.exception.AppException;
 import com.sample.loginsignup.domain.user.dto.UserDto;
 import com.sample.loginsignup.domain.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import javax.validation.Valid;
 
 @RestController
@@ -19,7 +20,12 @@ public class UserController {
     // user registration
     @PostMapping
     public UserDto registration(@RequestBody @Valid UserDto.Registration registration) {
-        return userService.registration(registration);
+        try {
+            return userService.registration(registration);
+        }catch (AppException aex) {
+            throw new ResponseStatusException(
+                    aex.getError().getStatus().value(), aex.getError().getMessage(), aex);
+        }
     }
 
 }
