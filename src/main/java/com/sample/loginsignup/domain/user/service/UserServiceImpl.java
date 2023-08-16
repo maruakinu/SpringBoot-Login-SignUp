@@ -19,20 +19,26 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDto registration(UserDto.Registration registration) {
-
+        userRepository.findByUsername(registration.getUsername()).stream().findAny().ifPresent(entity -> {
+            throw new AppException(Error.DUPLICATED_USER);
+        });
         UserEntity userEntity = UserEntity.builder()
                 .username(registration.getUsername())
                 .password(registration.getPassword())
                 .build();
 
-        if (registration.getUsername() == ""){
-            //System.out.println("Username Empty");
+        if (registration.getUsername() == "" || registration.getPassword() == ""){
             throw new AppException(Error.FIELD_EMPTY);
         }else{
             userRepository.save(userEntity);
         }
 
         return convertEntityToDto(userEntity);
+    }
+
+    @Override
+    public UserDto login(UserDto.Login login) {
+        return null;
     }
 
     private UserDto convertEntityToDto(UserEntity userEntity) {

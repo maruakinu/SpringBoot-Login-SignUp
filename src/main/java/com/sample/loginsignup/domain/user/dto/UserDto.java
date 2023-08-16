@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
@@ -17,9 +16,9 @@ public class UserDto {
 
     protected String id;
 
-    @NotEmpty(message = "Username should not be empty")
+    @NotNull
     private String username;
-    @NotEmpty(message = "Password should not be empty")
+    @NotNull
     private String password;
 
     @Getter
@@ -30,11 +29,24 @@ public class UserDto {
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
     public static class Registration {
 
-        @NotEmpty(message = "Username should not be empty")
+        @NotNull
         private String username;
-        @NotEmpty(message = "Password should not be empty")
+        @NotNull
         private String password;
 
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    @JsonTypeName("user")
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
+    public static class Login {
+        @NotNull
+        private String email;
+
+        @NotBlank
+        private String password;
     }
 
 

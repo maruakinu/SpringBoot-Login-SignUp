@@ -28,4 +28,11 @@ public class UserController {
         }
     }
 
+    @PostMapping("/login")
+    public UserDto login(@RequestBody @Valid UserDto.Login login) {
+        return userService.login(login);
+    }
+
+
+
 }
