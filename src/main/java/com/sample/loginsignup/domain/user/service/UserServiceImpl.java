@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
                 .build();
 
         if (registration.getUsername() == ""){
-            System.out.println("Username Empty");
+            //System.out.println("Username Empty");
             throw new AppException(Error.FIELD_EMPTY);
         }else{
             userRepository.save(userEntity);
