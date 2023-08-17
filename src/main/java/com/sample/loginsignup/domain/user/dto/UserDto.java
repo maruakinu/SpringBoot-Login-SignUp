@@ -24,6 +24,8 @@ public class UserDto {
     @NotNull
     private String password;
 
+    private String token;
+
     @Getter
     @Builder
     @NoArgsConstructor

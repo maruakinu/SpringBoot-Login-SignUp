@@ -4,6 +4,7 @@ import com.sample.loginsignup.domain.exception.AppException;
 import com.sample.loginsignup.domain.user.dto.UserDto;
 import com.sample.loginsignup.domain.user.entity.UserEntity;
 import com.sample.loginsignup.domain.user.repository.UserRepository;
+import com.sample.loginsignup.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+
+    private final JwtUtils jwtUtils;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -53,6 +56,7 @@ public class UserServiceImpl implements UserService{
                 .password(userEntity.getPassword())
                 .email(userEntity.getEmail())
                 .username(userEntity.getUsername())
+                .token(jwtUtils.encode(userEntity.getEmail()))
                 .build();
     }
 }
