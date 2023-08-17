@@ -18,6 +18,9 @@ public class UserDto {
 
     @NotNull
     private String username;
+
+    @NotNull
+    private String email;
     @NotNull
     private String password;
 
@@ -31,6 +34,10 @@ public class UserDto {
 
         @NotNull
         private String username;
+
+        @NotNull
+        private String email;
+
         @NotNull
         private String password;
 
