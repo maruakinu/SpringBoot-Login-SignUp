@@ -9,7 +9,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class JwtUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     private final Long validSeconds;
     private final Key key;
@@ -17,6 +22,7 @@ public class JwtUtils {
     public JwtUtils(String signKey, Long validSeconds) {
         this.validSeconds = validSeconds;
         key = Keys.hmacShaKeyFor(signKey.getBytes(StandardCharsets.UTF_8));
+
     }
 
     public String encode(String sub) {
@@ -24,7 +30,10 @@ public class JwtUtils {
             return null;
         }
         Instant exp = Instant.now();
-        return Jwts.builder().setSubject(sub).setIssuedAt(new Date(exp.toEpochMilli())).setExpiration(new Date(exp.toEpochMilli() + validSeconds*1000)).signWith(key).compact();
+        logger.info(String.valueOf("This is the Current Date: " + new Date(exp.toEpochMilli())));
+        logger.info(String.valueOf("This is the Expiry Token Date: " + new Date(exp.toEpochMilli() + validSeconds)));
+        //The Token will be expired on 1-hour timeframe
+        return Jwts.builder().setSubject(sub).setIssuedAt(new Date(exp.toEpochMilli())).setExpiration(new Date(exp.toEpochMilli() + validSeconds)).signWith(key).compact();
     }
 
     public boolean validateToken(String jwt) {
