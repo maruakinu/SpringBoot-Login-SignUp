@@ -6,7 +6,7 @@ IDE for Java SpringBoot, MySQL and API testing tool are required for this projec
 
 API TESTING ( Open your API Testing Tool )
 
-1. Register User
+1. User Register
 
         POST METHOD
         localhost:8080/users
@@ -19,7 +19,7 @@ API TESTING ( Open your API Testing Tool )
             }
           }
 
-2. Update Article by ID
+2. User Login
 
         POST METHOD
         localhost:8080/users/login
